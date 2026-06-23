@@ -6,7 +6,7 @@ Built for the CausalFunnel Full Stack Engineer hiring challenge.
 
 ---
 
-## Live Demo
+## Live Demo - https://behavior-tracking-script.onrender.com
 
 | Service | URL (Docker / production) | URL (local dev) |
 |---|---|---|
@@ -93,58 +93,6 @@ python3 -m http.server 8080 --directory demo
 | Heatmap | HTML Canvas API | High-performance rendering of thousands of points |
 | Infrastructure | Docker (single container) + MongoDB Atlas on Render |
 
----
-
-## Deploy to Render
-
-The repo ships a **single Docker image** that bundles the Express API, React dashboard, demo page, and tracker script. MongoDB runs separately (use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) free tier).
-
-### 1. Push to GitHub
-
-Ensure your repo contains the root `Dockerfile`, `render.yaml`, and `.dockerignore`.
-
-### 2. Create a MongoDB Atlas cluster
-
-1. Create a free M0 cluster at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas).
-2. Add a database user and allow network access from anywhere (`0.0.0.0/0`) for Render.
-3. Copy the connection string, e.g. `mongodb+srv://user:pass@cluster.mongodb.net/causalfunnel`.
-
-### 3. Deploy on Render
-
-**Blueprint (easiest):** In the Render dashboard, choose **New → Blueprint** and point it at your repo. Render reads `render.yaml` automatically.
-
-**Manual:**
-1. **New → Web Service** → connect your GitHub repo.
-2. Set **Runtime** to **Docker**.
-3. Leave **Dockerfile Path** as `./Dockerfile`.
-4. Add environment variable:
-   - `MONGO_URI` = your Atlas connection string
-5. Set **Health Check Path** to `/health`.
-6. Deploy.
-
-Render sets `PORT` automatically — the app listens on `process.env.PORT`.
-
-### 4. Verify
-
-| URL | Expected |
-|---|---|
-| `https://your-app.onrender.com` | React dashboard |
-| `https://your-app.onrender.com/health` | `{ "status": "ok", "mongo": "connected" }` |
-| `https://your-app.onrender.com/demo/index.html` | Demo storefront (events flow to dashboard) |
-
-### Build locally (optional)
-
-```bash
-docker build -t causalfunnel .
-docker run --rm -p 4000:10000 \
-  -e PORT=10000 \
-  -e MONGO_URI="mongodb://host.docker.internal:27017/causalfunnel" \
-  causalfunnel
-```
-
-Then open http://localhost:4000.
-
----
 
 ## API Reference
 
