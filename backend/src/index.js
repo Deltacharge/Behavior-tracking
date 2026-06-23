@@ -84,13 +84,13 @@ const PORT = process.env.PORT || 10000;
 mongoose
   .connect(MONGO_URI)
   .then(() => {
-    console.log('✅ MongoDB connected');
+    console.log('MongoDB connected');
     server.listen(PORT, '0.0.0.0', () => {
-      console.log(`🚀 API server running on http://localhost:${PORT}`);
-      console.log(`🔌 WebSocket server running on ws://localhost:${PORT}`);
+      console.log(`API server running on http://localhost:${PORT}`);
+      console.log(`WebSocket server running on ws://localhost:${PORT}`);
     });
   })
   .catch((err) => {
-    console.error('❌ MongoDB connection failed:', err.message);
+    console.error('MongoDB connection failed:', err.message);
     process.exit(1);
   });

@@ -1,6 +1,4 @@
-# ─────────────────────────────────────────────────────────────
-# Stage 1: Build the React / Vite frontend
-# ─────────────────────────────────────────────────────────────
+# Build the React / Vite frontend
 FROM node:20-alpine AS frontend-builder
 
 WORKDIR /frontend
@@ -17,9 +15,7 @@ ENV VITE_API_URL=$VITE_API_URL
 COPY frontend/ .
 RUN npm run build
 
-# ─────────────────────────────────────────────────────────────
-# Stage 2: Production backend (serves API + built frontend)
-# ─────────────────────────────────────────────────────────────
+# Production backend (serves API + built frontend)
 FROM node:20-alpine AS runner
 
 WORKDIR /app
