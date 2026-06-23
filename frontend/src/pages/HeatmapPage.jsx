@@ -164,6 +164,8 @@ export default function HeatmapPage() {
 
   useEffect(() => { loadHeatmap(); }, [loadHeatmap, refreshKey]);
 
+  const uniquePages = useMemo(() => [...new Set(pages)], [pages]);
+
   const points = useMemo(() => {
     if (pageFilter === 'all') return allPoints;
     return allPoints.filter((p) => p.url === pageFilter);
@@ -206,18 +208,34 @@ export default function HeatmapPage() {
             value={pageFilter}
             onChange={(e) => setPageFilter(e.target.value)}
             style={{
-              width: '100%', background: 'rgba(255,255,255,0.03)',
-              color: 'var(--text)', border: '1px solid var(--border)',
-              borderRadius: 8, padding: '9px 12px',
+              width: '100%',
+              background: 'var(--card2)',
+              color: 'var(--text)',
+              border: '1px solid var(--border2)',
+              borderRadius: 8,
+              padding: '9px 12px',
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 12, outline: 'none',
+              fontSize: 12,
+              outline: 'none',
+              cursor: 'pointer',
+              transition: 'border-color .15s ease, background .15s ease',
+              appearance: 'none',
+              WebkitAppearance: 'none',
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b88b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'right 10px center',
+              paddingRight: 30,
             }}
           >
-            <option value="all">All pages</option>
-            {pages.map((p) => {
+            <option value="all" style={{ background: '#1a1a3a', color: '#ececff' }}>All pages</option>
+            {uniquePages.map((p) => {
               let label = p;
               try { label = new URL(p).pathname + (new URL(p).hash || ''); } catch {}
-              return <option key={p} value={p}>{label}</option>;
+              return (
+                <option key={p} value={p} style={{ background: '#1a1a3a', color: '#ececff' }}>
+                  {label}
+                </option>
+              );
             })}
           </select>
 
