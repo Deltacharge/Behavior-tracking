@@ -1,0 +1,24 @@
+# Dependencies (re-installed inside the image)
+**/node_modules
+**/npm-debug.log
+
+# Local env & secrets
+**/.env
+**/.env.*
+
+# Build output (frontend is rebuilt in the image)
+frontend/dist
+backend/public
+
+# Git & editor
+.git
+.gitignore
+.cursor
+.vscode
+*.md
+!README.md
+
+# Dev-only compose / per-service Dockerfiles (root Dockerfile is used)
+docker-compose.yml
+backend/Dockerfile
+frontend/Dockerfile
