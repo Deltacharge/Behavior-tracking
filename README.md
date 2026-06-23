@@ -94,69 +94,6 @@ python3 -m http.server 8080 --directory demo
 | Infrastructure | Docker (single container) + MongoDB Atlas on Render |
 
 
-## API Reference
-
-### POST `/api/events`
-Ingest one event or a batch array.
-
-```json
-{
-  "sessionId": "uuid-v4",
-  "eventType": "click",
-  "pageUrl": "https://example.com/products",
-  "timestamp": "2024-01-01T12:00:00.000Z",
-  "clickData": {
-    "x": 340,
-    "y": 220,
-    "targetTag": "button",
-    "targetText": "Add to cart",
-    "viewportWidth": 1440,
-    "viewportHeight": 900
-  },
-  "metadata": {
-    "userAgent": "Mozilla/5.0...",
-    "referrer": ""
-  }
-}
-```
-
-Responds: `{ "received": 1, "dropped": 0 }`
-
----
-
-### GET `/api/sessions`
-List all sessions, sorted by most recent.
-
-Query params: `page`, `limit` (default 50)
-
----
-
-### GET `/api/sessions/stats`
-Aggregate totals for the dashboard header.
-
-```json
-{
-  "totalSessions": 42,
-  "totalEvents": 1337,
-  "totalPageViews": 380,
-  "totalClicks": 720,
-  "avgEventsPerSession": 31.8,
-  "recentSessions": 12
-}
-```
-
----
-
-### GET `/api/events/:sessionId`
-Full ordered event timeline for a session.
-
----
-
-### GET `/api/heatmap?url=<encoded_url>`
-Click coordinates for heatmap rendering. Returns normalized `nx`/`ny` values (0–1) based on viewport dimensions, as well as raw pixel coordinates.
-
----
-
 ## Tracker Script
 
 Drop one line into any webpage:
