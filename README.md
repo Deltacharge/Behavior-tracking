@@ -1,4 +1,4 @@
-# CausalFunnel Analytics
+# CausalFunnel Analytics Assessment
 
 > Full-stack user behavior analytics platform — session tracking, real-time event streaming, and click heatmaps.
 
