@@ -1,0 +1,11 @@
+services:
+  # Single container: Express API + React dashboard + demo + tracker
+  - type: web
+    name: causalfunnel
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: MONGO_URI
+        sync: false           # Set in Render dashboard — MongoDB Atlas connection string
